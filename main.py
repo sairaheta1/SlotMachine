@@ -1,4 +1,4 @@
-#setting up constants for max lines and min lines
+#setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
 def main():
   deposit()
