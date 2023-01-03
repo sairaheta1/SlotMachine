@@ -10,7 +10,7 @@ def main():
 
 
 def valid_bet(bet, balance):
-  if bet > balance or bet < MIN_BET:
+  if bet > balance:
     return False
   return True
 
