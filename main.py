@@ -5,6 +5,7 @@ def main():
   balance = deposit()
   bet_lines = get_num_lines()
   bet = get_bet(balance, bet_lines)
+  print(bet)
 
 
 def valid_bet(bet, balance):
@@ -19,9 +20,9 @@ def get_bet(balance, bet_lines):
     if not amountToBet.isdigit():
       print("Not valid. Bet must me a number greater than 0.")
     else:
-      totalBet = bet_lines * amountToBet
+      totalBet = bet_lines * int(amountToBet)
       if not valid_bet(totalBet, balance):
-        print("Not valid. Your bet requires a minimum balance of $. You currently have $.") # totalBet, balance
+        print(f"Not valid. Your bet requires a minimum balance of ${totalBet}. You currently have ${balance}.") # totalBet, balance
       else:
         break
   return totalBet
