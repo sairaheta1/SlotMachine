@@ -1,9 +1,30 @@
 #setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
-def main():
-  deposit()
-  get_num_lines()
 
+def main():
+  balance = deposit()
+  bet_lines = get_num_lines()
+  bet = get_bet(balance, bet_lines)
+
+
+def valid_bet(bet, balance):
+  if bet > balance:
+    return False
+  return True
+
+#ask user how much they would like to bet on each line
+def get_bet(balance, bet_lines):
+  while True:
+    amountToBet= input("How much would you like to bet? $")
+    if not amountToBet.isdigit():
+      print("Not valid. Bet must me a number greater than 0.")
+    else:
+      totalBet = bet_lines * amountToBet
+      if not valid_bet(totalBet, balance):
+        print("Not valid. Your bet requires a minimum balance of $. You currently have $.") # totalBet, balance
+      else:
+        break
+  return totalBet
 
 #collect user input to get deposit from user
 def deposit ():
@@ -32,7 +53,8 @@ def get_num_lines(): #ask user how many lines they would like to bet on
       else:
         break
   return lines
-
-
-
 main()
+#NEXT THING TO WORK ON:
+ # get the amount they want to bet on each line
+ # check to see if the amount they want to bet * lines is within their current balance
+  
