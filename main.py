@@ -2,6 +2,18 @@
 MAX_LINES = 3
 MIN_BET = 1
 
+ROWS = 3
+COLS = 3
+
+#symbols within the reels of the slot machine
+symbol_count = {
+  "A": 2,
+  "E": 4,
+  "I": 6,
+  "O": 8, 
+  "U": 10, 
+}
+
 def main():
   balance = deposit()
   bet_lines = get_num_lines()
@@ -59,3 +71,9 @@ def get_num_lines(): #ask user how many lines they would like to bet on
         break
   return lines
 main()
+
+#NEXT TO WORK ON:
+  #slot machine spin
+  #printing the spin
+  #checking to see if we won
+  #adding or subtracting win/loss from current balance
