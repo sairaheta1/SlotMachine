@@ -5,7 +5,7 @@ from datetime import datetime
 MAX_LINES = 3
 MIN_BET = 1
 
-ROWS = 3
+ROWS = 4
 COLS = 3
 
 #symbols within the reels of the slot machine
@@ -23,13 +23,13 @@ def create_list_values():
   for symbol, count in symbol_count.items():
     slotMachineValues.extend([symbol] * count) #add each symbol to the list for a specified amount of times
 
-def create_rows():
+def create_cols():
   valuesToChooseFrom = slotMachineValues.copy()
   slotMachine = [];
-  for row in range(ROWS):
+  for col in range(COLS):
     x = []
     slotMachine.append(x)
-    for col in range(COLS):
+    for row in range(ROWS):
       value = RNG(len(valuesToChooseFrom))
       x.append(valuesToChooseFrom[value])
       del valuesToChooseFrom[value]
@@ -43,12 +43,6 @@ def print_slot_machine(reels):
       print(" " + col[row], end=" |")
     print()
 
-def count_winnings(reels):
-  winCount = 0
-  for row in reels:
-    if len(set(row)) <= 1:
-      winCount += 1
-  return winCount
 
 
 def RNG(max_range):
@@ -56,7 +50,7 @@ def RNG(max_range):
 
 def main():
   create_list_values()
-  reels = create_rows()
+  reels = create_cols()
   print_slot_machine(reels)
   print(count_winnings(reels))
   #balance = deposit()
