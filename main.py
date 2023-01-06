@@ -40,7 +40,7 @@ def print_slot_machine(reels):
   for row in reels:
     print("|", end="")
     for col in row:
-      print(col, end="|")
+      print(" " + col, end=" |")
     print()
 
 
@@ -49,7 +49,7 @@ def RNG(max_range):
 
 def main():
   create_list_values()
-  reels = create_cols()
+  reels = create_rows()
   print_slot_machine(reels)
   balance = deposit()
   betLines = get_num_lines()
