@@ -33,7 +33,6 @@ def create_rows():
       value = RNG(len(valuesToChooseFrom))
       x.append(valuesToChooseFrom[value])
       del valuesToChooseFrom[value]
-  print(slotMachine)
   return slotMachine
 
 def print_slot_machine(reels):
