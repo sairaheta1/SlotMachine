@@ -62,14 +62,17 @@ def RNG(max_range):
   return random.randrange(0, max_range)
 
 def main():
+  print("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit.") #need to add input validators
   balance = deposit()
   betLines = get_num_lines()
   bet = get_bet(balance, betLines)
   print(f"Your total bet is: ${bet}")
+  print("Press (s) to spin the machine.") #need to make sure machine only spins on (s) press
   create_list_values()
   reels = create_cols()
   print_slot_machine(reels)
-  print(count_winnings(reels))
+  print(f"You won on {count_winnings(reels)} rows. You won $MONEY") #ADD WIN AMOUNT
+  print("Your new balance is $MONEY") #UPDATE BALANCE
 
 
 
