@@ -33,14 +33,17 @@ def create_cols():
       value = RNG(len(valuesToChooseFrom))
       x.append(valuesToChooseFrom[value])
       del valuesToChooseFrom[value]
-  print(slot_machine)
-  
+  return slot_machine
+
+
+
 def RNG(max_range):
   return random.randrange(0, max_range)
 
 def main():
   create_list_values()
-  create_cols()
+  reels = create_cols()
+  print(reels)
   balance = deposit()
   bet_lines = get_num_lines()
   bet = get_bet(balance, bet_lines)
