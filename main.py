@@ -23,18 +23,25 @@ def create_list_values():
   for symbol, count in symbol_count.items():
     slotMachineValues.extend([symbol] * count) #add each symbol to the list for a specified amount of times
 
-def create_cols():
+def create_rows():
   valuesToChooseFrom = slotMachineValues.copy()
-  slot_machine = [];
-  for col in range(COLS):
+  slotMachine = [];
+  for row in range(ROWS):
     x = []
-    slot_machine.append(x)
-    for row in range(ROWS):
+    slotMachine.append(x)
+    for col in range(COLS):
       value = RNG(len(valuesToChooseFrom))
       x.append(valuesToChooseFrom[value])
       del valuesToChooseFrom[value]
-  return slot_machine
+  print(slotMachine)
+  return slotMachine
 
+def print_slot_machine(reels):
+  for row in reels:
+    print("|", end="")
+    for col in row:
+      print(col, end="|")
+    print()
 
 
 def RNG(max_range):
@@ -43,11 +50,12 @@ def RNG(max_range):
 def main():
   create_list_values()
   reels = create_cols()
-  print(reels)
+  print_slot_machine(reels)
   balance = deposit()
-  bet_lines = get_num_lines()
-  bet = get_bet(balance, bet_lines)
+  betLines = get_num_lines()
+  bet = get_bet(balance, betLines)
   print(bet)
+
 
 
 def valid_bet(bet, balance):
