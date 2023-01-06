@@ -1,6 +1,6 @@
 import random
 from datetime import datetime
-random.seed(datetime.now().timestamp())
+#random.seed(datetime.now().timestamp())
 #setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
 MIN_BET = 1
@@ -36,11 +36,19 @@ def create_rows():
   return slotMachine
 
 def print_slot_machine(reels):
-  for row in reels:
+  print(reels)
+  for row in range(ROWS):
     print("|", end="")
-    for col in row:
-      print(" " + col, end=" |")
+    for col in reels:
+      print(" " + col[row], end=" |")
     print()
+
+def count_winnings(reels):
+  winCount = 0
+  for row in reels:
+    if len(set(row)) <= 1:
+      winCount += 1
+  return winCount
 
 
 def RNG(max_range):
@@ -50,10 +58,11 @@ def main():
   create_list_values()
   reels = create_rows()
   print_slot_machine(reels)
-  balance = deposit()
-  betLines = get_num_lines()
-  bet = get_bet(balance, betLines)
-  print(bet)
+  print(count_winnings(reels))
+  #balance = deposit()
+  #betLines = get_num_lines()
+  #bet = get_bet(balance, betLines)
+  #print(bet)
 
 
 
@@ -109,7 +118,5 @@ def get_num_lines(): #ask user how many lines they would like to bet on
 main()
 
 #NEXT TO WORK ON:
-  #slot machine spin
-  #printing the spin
   #checking to see if we won
   #adding or subtracting win/loss from current balance
