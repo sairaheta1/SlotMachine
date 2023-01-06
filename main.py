@@ -62,14 +62,14 @@ def RNG(max_range):
   return random.randrange(0, max_range)
 
 def main():
+  balance = deposit()
+  betLines = get_num_lines()
+  bet = get_bet(balance, betLines)
+  print(f"Your total bet is: ${bet}")
   create_list_values()
   reels = create_cols()
   print_slot_machine(reels)
   print(count_winnings(reels))
-  #balance = deposit()
-  #betLines = get_num_lines()
-  #bet = get_bet(balance, betLines)
-  #print(bet)
 
 
 
@@ -81,7 +81,7 @@ def valid_bet(bet, balance):
 #ask user how much they would like to bet on each line
 def get_bet(balance, bet_lines):
   while True:
-    amountToBet= input("How much would you like to bet? $")
+    amountToBet= input("How much would you like to bet on each line? $")
     if not amountToBet.isdigit():
       print("Not valid. Bet must me a number greater than 0.")
     else:
