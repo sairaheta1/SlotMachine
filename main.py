@@ -5,7 +5,7 @@ from datetime import datetime
 MAX_LINES = 3
 MIN_BET = 1
 
-ROWS = 4
+ROWS = 3
 COLS = 3
 
 #symbols within the reels of the slot machine
@@ -42,6 +42,19 @@ def print_slot_machine(reels):
     for col in reels:
       print(" " + col[row], end=" |")
     print()
+
+def count_winnings(reels):
+  winCount = 0
+  for row in range(ROWS):
+    currentSymbol = reels[0][row]
+    rowCount = 0
+    for line in range(COLS):
+      if reels[line][row] != currentSymbol:
+        break
+    else:
+        winCount += 1
+  return winCount
+
 
 
 
@@ -112,5 +125,6 @@ def get_num_lines(): #ask user how many lines they would like to bet on
 main()
 
 #NEXT TO WORK ON:
-  #checking to see if we won
+  #adding multipliers to game
   #adding or subtracting win/loss from current balance
+  #more options for user
