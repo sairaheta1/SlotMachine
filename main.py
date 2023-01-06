@@ -1,3 +1,6 @@
+import random
+from datetime import datetime
+random.seed(datetime.now().timestamp())
 #setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
 MIN_BET = 1
@@ -14,7 +17,30 @@ symbol_count = {
   "U": 10, 
 }
 
+slotMachineValues = [] #possible values for slot reels
+
+def create_list_values():
+  for symbol, count in symbol_count.items():
+    slotMachineValues.extend([symbol] * count) #add each symbol to the list for a specified amount of times
+
+def create_cols():
+  valuesToChooseFrom = slotMachineValues.copy()
+  slot_machine = [];
+  for col in range(COLS):
+    x = []
+    slot_machine.append(x)
+    for row in range(ROWS):
+      value = RNG(len(valuesToChooseFrom))
+      x.append(valuesToChooseFrom[value])
+      del valuesToChooseFrom[value]
+  print(slot_machine)
+  
+def RNG(max_range):
+  return random.randrange(0, max_range)
+
 def main():
+  create_list_values()
+  create_cols()
   balance = deposit()
   bet_lines = get_num_lines()
   bet = get_bet(balance, bet_lines)
