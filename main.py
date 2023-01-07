@@ -1,5 +1,4 @@
-import sys
-import random
+import sys, random, time
 from datetime import datetime
 random.seed(datetime.now().timestamp())
 #setting up constants for max lines, bet, and min bet
@@ -37,12 +36,14 @@ def create_cols():
   return slotMachine
 
 def print_slot_machine(reels):
-  print(reels)
+  time.sleep(2)
+  print()
   for row in range(ROWS):
     print("|", end="")
     for col in reels:
       print(" " + col[row], end=" |")
     print()
+  print()
 
 def count_winnings(reels):
   winCount = 0
@@ -75,10 +76,15 @@ def main():
   betLines = get_num_lines()
   bet = get_bet(balance, betLines)
   print(f"Your total bet is: ${bet}")
-  print("Press (s) to spin the machine.") #need to make sure machine only spins on (s) press
+
+  spin = input("Press (s) to spin the machine. ")
+  while (spin != "s"):
+    spin = input("Press (s) to spin the machine. ")
+  
   create_list_values()
   reels = create_cols()
   print_slot_machine(reels)
+
   winnings = count_winnings(reels)
   newBalance = update_balance(balance, bet, winnings)
   print(f"You won on {winnings} rows. You won $MONEY") #ADD WIN AMOUNT
