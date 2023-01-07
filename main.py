@@ -50,6 +50,54 @@ def getStartingChoice():
     userChoice = str(input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ")) #need to add input validators
   if userChoice == "q":
     sys.exit("Goodbye.")
+#collect user input to get deposit from user
+def deposit ():
+  while True:
+    amount = input("How much would you like to deposit? $")
+    if not amount.isdigit():
+      print("Not valid. Deposit must be a number greater than 0.")
+    else:
+      amount = int(amount)
+      if amount < 0:
+        print("Not valid. Deposit must be a number greater than 0.")
+      else:
+        break
+  return amount
+
+def get_num_lines(): #ask user how many lines they would like to bet on
+  while True:
+    lines = input("How many lines would you like to bet on? Please enter a value between 1-" + str(MAX_LINES) + ". ")
+
+    if not lines.isdigit():
+      print("Please enter a valid number of lines for your bet.")
+    else:
+      lines = int(lines)
+      if lines > MAX_LINES or lines < 1:
+        print("Please enter a valid number of lines for your bet.")
+      else:
+        break
+  return lines
+
+def get_bet(balance, bet_lines):
+  while True:
+    amountToBet= input("How much would you like to bet on each line? $")
+    if not amountToBet.isdigit():
+      print("Not valid. Bet must me a number greater than 0.")
+    else:
+      if int(amountToBet) < MIN_BET:
+        print(f"Not valid. Your bet must be greater than the minimum value required, ${MIN_BET}.")
+      else:
+        totalBet = bet_lines * int(amountToBet)
+        if not valid_bet(totalBet, balance):
+          print(f"Not valid. Your bet requires a minimum balance of ${totalBet}. You currently have ${balance}.") # totalBet, balance
+        else:
+          break
+  return totalBet
+
+def valid_bet(bet, balance):
+  if bet > balance:
+    return False
+  return True
 
 def spin_machine(reels):
   spin = input("Press (s) to spin the machine. ")
@@ -87,6 +135,9 @@ def print_slot_machine(reels):
     print()
   print()
 
+def RNG(max_range):
+  return random.randrange(0, max_range)
+  
 def count_winnings(bet, reels):
   winCount = 0
   amountWon = 0
@@ -107,10 +158,6 @@ def count_winnings(bet, reels):
 def update_balance(balance, bet, winnings):
   return (balance - bet) + winnings
 
-
-def RNG(max_range):
-  return random.randrange(0, max_range)
-
 def keepPlaying(balance):
   keepPlaying = input("Press (p) to play or (q) to quit. ")
   while not (keepPlaying == "p" or keepPlaying == "q"):
@@ -118,54 +165,10 @@ def keepPlaying(balance):
   if keepPlaying == "q":
     sys.exit(f"You left with ${balance}. Goodbye.")
 
-def valid_bet(bet, balance):
-  if bet > balance:
-    return False
-  return True
+
 
 #ask user how much they would like to bet on each line
-def get_bet(balance, bet_lines):
-  while True:
-    amountToBet= input("How much would you like to bet on each line? $")
-    if not amountToBet.isdigit():
-      print("Not valid. Bet must me a number greater than 0.")
-    else:
-      if int(amountToBet) < MIN_BET:
-        print(f"Not valid. Your bet must be greater than the minimum value required, ${MIN_BET}.")
-      else:
-        totalBet = bet_lines * int(amountToBet)
-        if not valid_bet(totalBet, balance):
-          print(f"Not valid. Your bet requires a minimum balance of ${totalBet}. You currently have ${balance}.") # totalBet, balance
-        else:
-          break
-  return totalBet
 
-#collect user input to get deposit from user
-def deposit ():
-  while True:
-    amount = input("How much would you like to deposit? $")
-    if not amount.isdigit():
-      print("Not valid. Deposit must be a number greater than 0.")
-    else:
-      amount = int(amount)
-      if amount < 0:
-        print("Not valid. Deposit must be a number greater than 0.")
-      else:
-        break
-  return amount
 
-def get_num_lines(): #ask user how many lines they would like to bet on
-  while True:
-    lines = input("How many lines would you like to bet on? Please enter a value between 1-" + str(MAX_LINES) + ". ")
-
-    if not lines.isdigit():
-      print("Please enter a valid number of lines for your bet.")
-    else:
-      lines = int(lines)
-      if lines > MAX_LINES or lines < 1:
-        print("Please enter a valid number of lines for your bet.")
-      else:
-        break
-  return lines
 
 main()
