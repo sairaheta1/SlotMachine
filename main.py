@@ -53,8 +53,9 @@ def print_slot_machine(reels):
     print()
   print()
 
-def count_winnings(reels):
+def count_winnings(bet, reels):
   winCount = 0
+  amountWon = 0
   for row in range(ROWS):
     currentSymbol = reels[0][row]
     rowCount = 0
@@ -63,7 +64,11 @@ def count_winnings(reels):
         break
     else:
         winCount += 1 #need to add a way to add multiplier for the symbol
-  return winCount
+        amountWon += bet * symbol_multipliers[currentSymbol]
+  print(f"You won on {winCount} rows.")
+  print(f"You won ${amountWon}")
+  
+  return amountWon
 
 def update_balance(balance, bet, winnings):
   return (balance - bet) + winnings
@@ -93,9 +98,9 @@ def main():
   reels = create_cols()
   print_slot_machine(reels)
 
-  winnings = count_winnings(reels)
+  winnings = count_winnings(bet, reels)
   newBalance = update_balance(balance, bet, winnings)
-  print(f"You won on {winnings} rows. You won $MONEY") #ADD WIN AMOUNT
+  
   print(f"Your new balance is ${newBalance}.") #UPDATE BALANCE
 
 
