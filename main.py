@@ -27,6 +27,40 @@ symbol_multipliers = {
 
 slotMachineValues = [] #possible values for slot reels
 
+def main():
+  getStartingChoice()
+  balance = deposit()
+
+  while True:
+    betLines = get_num_lines()
+    bet = get_bet(balance, betLines)
+    print(f"Your total bet is: ${bet}")
+
+    reels = None
+    reels = spin_machine(reels)
+    winnings = count_winnings(bet, reels)
+    balance = update_balance(balance, bet, winnings)
+    
+    print(f"Your current balance is ${balance}.")
+    keepPlaying(balance)
+
+def getStartingChoice():
+  userChoice = input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ") #need to add input validators
+  while not (userChoice == "c" or userChoice == "q"):
+    userChoice = str(input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ")) #need to add input validators
+  if userChoice == "q":
+    sys.exit("Goodbye.")
+
+def spin_machine(reels):
+  spin = input("Press (s) to spin the machine. ")
+  while (spin != "s"):
+    spin = input("Press (s) to spin the machine. ")
+  
+  create_list_values()
+  reels = create_cols()
+  print_slot_machine(reels)
+  return reels
+    
 def create_list_values():
   for symbol, count in symbol_count.items():
     slotMachineValues.extend([symbol] * count) #add each symbol to the list for a specified amount of times
@@ -66,7 +100,7 @@ def count_winnings(bet, reels):
         winCount += 1 #need to add a way to add multiplier for the symbol
         amountWon += bet * symbol_multipliers[currentSymbol]
   print(f"You won on {winCount} rows.")
-  print(f"You won ${amountWon}")
+  print(f"You won ${amountWon}.")
   
   return amountWon
 
@@ -77,33 +111,12 @@ def update_balance(balance, bet, winnings):
 def RNG(max_range):
   return random.randrange(0, max_range)
 
-def main():
-  userChoice = input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ") #need to add input validators
-  while not (userChoice == "c" or userChoice == "q"):
-    userChoice = str(input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ")) #need to add input validators
-  #need to add while loop to keep playin
-  if userChoice == "q":
-    sys.exit("Goodbye")
-
-  balance = deposit()
-  betLines = get_num_lines()
-  bet = get_bet(balance, betLines)
-  print(f"Your total bet is: ${bet}")
-
-  spin = input("Press (s) to spin the machine. ")
-  while (spin != "s"):
-    spin = input("Press (s) to spin the machine. ")
-  
-  create_list_values()
-  reels = create_cols()
-  print_slot_machine(reels)
-
-  winnings = count_winnings(bet, reels)
-  newBalance = update_balance(balance, bet, winnings)
-  
-  print(f"Your new balance is ${newBalance}.") #UPDATE BALANCE
-
-
+def keepPlaying(balance):
+  keepPlaying = input("Press (p) to play or (q) to quit. ")
+  while not (keepPlaying == "p" or keepPlaying == "q"):
+    keepPlaying = input("Press (p) to play or (q) to quit. ")
+  if keepPlaying == "q":
+    sys.exit(f"You left with ${balance}. Goodbye.")
 
 def valid_bet(bet, balance):
   if bet > balance:
@@ -154,9 +167,5 @@ def get_num_lines(): #ask user how many lines they would like to bet on
       else:
         break
   return lines
-main()
 
-#NEXT TO WORK ON:
-  #adding multipliers to game
-  #adding or subtracting win/loss from current balance
-  #more options for user
+main()
