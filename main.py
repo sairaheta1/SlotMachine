@@ -10,11 +10,19 @@ COLS = 3
 
 #symbols within the reels of the slot machine
 symbol_count = {
-  "A": 2,
+  "A": 3,
   "E": 4,
   "I": 6,
   "O": 8, 
-  "U": 10, 
+  "U": 10
+}
+#the monetary values for the symbols
+symbol_multipliers = {
+  "A": 100,
+  "E": 10, 
+  "I": 5,
+  "O": 2,
+  "U": 1
 }
 
 slotMachineValues = [] #possible values for slot reels
