@@ -1,6 +1,7 @@
+import sys
 import random
 from datetime import datetime
-#random.seed(datetime.now().timestamp())
+random.seed(datetime.now().timestamp())
 #setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
 MIN_BET = 1
@@ -52,17 +53,24 @@ def count_winnings(reels):
       if reels[line][row] != currentSymbol:
         break
     else:
-        winCount += 1
+        winCount += 1 #need to add a way to add multiplier for the symbol
   return winCount
 
-
+def update_balance(balance, bet, winnings):
+  return (balance - bet) + winnings
 
 
 def RNG(max_range):
   return random.randrange(0, max_range)
 
 def main():
-  print("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit.") #need to add input validators
+  userChoice = input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ") #need to add input validators
+  while not (userChoice == "c" or userChoice == "q"):
+    userChoice = str(input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ")) #need to add input validators
+  #need to add while loop to keep playin
+  if userChoice == "q":
+    sys.exit("Goodbye")
+
   balance = deposit()
   betLines = get_num_lines()
   bet = get_bet(balance, betLines)
@@ -71,8 +79,10 @@ def main():
   create_list_values()
   reels = create_cols()
   print_slot_machine(reels)
-  print(f"You won on {count_winnings(reels)} rows. You won $MONEY") #ADD WIN AMOUNT
-  print("Your new balance is $MONEY") #UPDATE BALANCE
+  winnings = count_winnings(reels)
+  newBalance = update_balance(balance, bet, winnings)
+  print(f"You won on {winnings} rows. You won $MONEY") #ADD WIN AMOUNT
+  print(f"Your new balance is ${newBalance}.") #UPDATE BALANCE
 
 
 
