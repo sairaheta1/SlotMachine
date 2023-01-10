@@ -42,7 +42,15 @@ def main():
     balance = update_balance(balance, bet, winnings)
     
     print(f"Your current balance is ${balance}.")
+    
     keepPlaying(balance)
+    if balance == 0:
+      while balance == 0:
+        newDeposit = input("Please deposit more money to keep playing. $ ")
+        try:
+          balance += int(newDeposit)
+        except:
+          print(f"{newDeposit} is not valid.")
 
 def getStartingChoice():
   userChoice = input("Welcome to Sam Slots. Get 3 in a row to win. Press (c) to continue or (q) to quit. ") #need to add input validators
@@ -58,7 +66,7 @@ def deposit ():
       print("Not valid. Deposit must be a number greater than 0.")
     else:
       amount = int(amount)
-      if amount < 0:
+      if amount <= 0:
         print("Not valid. Deposit must be a number greater than 0.")
       else:
         break
@@ -165,10 +173,6 @@ def keepPlaying(balance):
   if keepPlaying == "q":
     sys.exit(f"You left with ${balance}. Goodbye.")
 
-
-
-#ask user how much they would like to bet on each line
-
-
-
 main()
+#edge cases:
+  #balance goes to 0, I should give option to deposit more
