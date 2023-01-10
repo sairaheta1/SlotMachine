@@ -1,7 +1,7 @@
 import sys, random, time
-#from datetime import datetime
-#c
-# random.seed(datetime.now().timestamp())
+from datetime import datetime
+random.seed(datetime.now().timestamp())
+
 #setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
 MIN_BET = 1
