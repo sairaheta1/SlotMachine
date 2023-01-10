@@ -1,6 +1,7 @@
 import sys, random, time
-from datetime import datetime
-random.seed(datetime.now().timestamp())
+#from datetime import datetime
+#c
+# random.seed(datetime.now().timestamp())
 #setting up constants for max lines, bet, and min bet
 MAX_LINES = 3
 MIN_BET = 1
@@ -32,7 +33,7 @@ def main():
   balance = deposit()
 
   while True:
-    betLines = get_num_lines()
+    betLines = get_num_lines(balance)
     bet = get_bet(balance, betLines)
     print(f"Your total bet is: ${bet}")
 
@@ -46,10 +47,12 @@ def main():
     keepPlaying(balance)
     if balance == 0:
       while balance == 0:
-        newDeposit = input("Please deposit more money to keep playing. $ ")
+        newDeposit = input("Please deposit more money to keep playing or press (q) to quit. $ ")
         try:
           balance += int(newDeposit)
         except:
+          if newDeposit == "q":
+            sys.exit(f"You left with ${balance}. Goodbye.")
           print(f"{newDeposit} is not valid.")
 
 def getStartingChoice():
@@ -72,15 +75,17 @@ def deposit ():
         break
   return amount
 
-def get_num_lines(): #ask user how many lines they would like to bet on
+def get_num_lines(balance): #ask user how many lines they would like to bet on
   while True:
     lines = input("How many lines would you like to bet on? Please enter a value between 1-" + str(MAX_LINES) + ". ")
 
     if not lines.isdigit():
       print("Please enter a valid number of lines for your bet.")
     else:
-      lines = int(lines)
-      if lines > MAX_LINES or lines < 1:
+      lines = int(lines)     
+      if lines > MAX_LINES or lines < 1 or lines > balance:
+        if lines > balance:
+          print(f"You can only bet a maximum of {balance} lines with ${balance}.")
         print("Please enter a valid number of lines for your bet.")
       else:
         break
@@ -174,5 +179,3 @@ def keepPlaying(balance):
     sys.exit(f"You left with ${balance}. Goodbye.")
 
 main()
-#edge cases:
-  #balance goes to 0, I should give option to deposit more
